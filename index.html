@@ -22,11 +22,11 @@
             </header>
             <div class="row contenido-formulario">
                 <div class="col col-md-10 mr-md-auto ml-md-auto">
-                  <form action="#" id="cotizar-seguro">
+                  <form action="#" id="insuranceQuote">
                               
                                 <div class="form-group">
-                                    <label for="marca">Marca:</label>
-                                    <select class="form-control" id="marca">
+                                    <label for="marca">Región:</label>
+                                    <select class="form-control" id="region">
                                         <option value="">- Seleccionar -</option>
                                         <option value="1">Americano</option>
                                         <option value="2">Asiatico</option>
@@ -46,13 +46,13 @@
                                       <div class="col12">
                                           <div class="form-check">
                                             <label class="form-check-label">
-                                              <input class="form-check-input" type="radio" name="tipo" value="basico" checked>
+                                              <input class="form-check-input" type="radio" name="type" value="basico" checked>
                                               Básico
                                             </label>
                                         </div>
                                         <div class="form-check">
                                             <label class="form-check-label">
-                                              <input class="form-check-input" type="radio" name="tipo" value="completo">
+                                              <input class="form-check-input" type="radio" name="type" value="completo">
                                               Completo
                                             </label>
                                         </div>
@@ -60,10 +60,10 @@
                                     </div>
                               </fieldset>
 
-                          <div id="cargando">
+                          <div id="loading">
                               <img src="img/spinner.gif">
                           </div>
-                          <div id="resultado"></div>
+                          <div id="result"></div>
                           <div class="form-group">
                                   <button type="submit" class="btn btn-raised btn-primary">Cotizar
                                   </button>
