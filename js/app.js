@@ -7,10 +7,6 @@ function Insurance(region, year, type) {
 }
 
 Insurance.prototype.insuranceQuote = function() {
-    console.log(this.region);
-    console.log(this.year);
-    console.log(this.type);
-
     /*
         1 = Americano 1.15
         2 = Asiatico 1.05
@@ -38,7 +34,7 @@ Insurance.prototype.insuranceQuote = function() {
     /*
         si el seguro es basico se multiplica por 30%
     */
-   if(this.type === 'basic') {
+   if(this.type === 'Básico') {
        quantity *= 1.30;
    } else {
        quantity *= 1.50;
@@ -50,6 +46,7 @@ Insurance.prototype.insuranceQuote = function() {
   // Toda la interfaz
   function UI() {};
 
+// Mensaje que se imprime en el html
 UI.prototype.showMessage = function(message, messageType) {
     const div = document.createElement('div');
 
@@ -67,7 +64,33 @@ UI.prototype.showMessage = function(message, messageType) {
     }, 3000);
 }
 
-
+// Imprime el resultado de la cotización
+UI.prototype.showResult = function(insurance, total) {
+    const result = document.querySelector('#result');
+    let region;
+    switch ((insurance.region)) {
+        case "1":
+            region = "Americano";
+            break;
+        case "2":
+            region = "Asiatico";
+            break;
+        case "3":
+            region = "Europeo";
+            break;
+    }
+    // Crear el div
+    const div = document.createElement('div');
+    // Insertar la información
+    div.innerHTML = `
+        <p>Tu resumen:</p>
+        <p>Región: ${region}</p>
+        <p>Año: ${insurance.year}</p>
+        <p>Tipo: ${insurance.type}</p>
+        <p>Total: ${total}</p>
+    `;
+    result.appendChild(div);
+}
 
 
 // EventListener
@@ -86,17 +109,19 @@ form.addEventListener('submit', function(e) {
     const type = document.querySelector('input[name="type"]:checked').value;
 
     // Crear instancia de interfaz
-    const interfaz = new UI();
+    const interface = new UI();
 
     // Revisamos que los campos no esten vacios
     if (selectedRegion === '' || selectedYear === '' || type === '') {
         // Interfaz inprimiendo un error
-            interfaz.showMessage('Faltan datos, revisa el formulario y prueba de nuevo', 'error');
+            interface.showMessage('Faltan datos, revisa el formulario y prueba de nuevo', 'error');
     } else {
         // Instancia seguro y mostrar interfaz
         const insurance = new Insurance(selectedRegion, selectedYear, type);
         // cotizar el seguro
         const quantity = insurance.insuranceQuote();
+        // Mostrar el resultado
+        interface.showResult(insurance, quantity);
     }
 });
 
