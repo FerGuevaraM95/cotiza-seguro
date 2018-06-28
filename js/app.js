@@ -10,6 +10,23 @@ function insurance(region, year, type) {
 // Toda la interfaz
 function UI() {}
 
+UI.prototype.showMessage = function(message, messageType) {
+    const div = document.createElement('div');
+
+    if(messageType === 'error') {
+        div.classList.add('message', 'error');
+    } else {
+        div.classList.add('message', 'right');
+    }
+
+    div.innerHTML = `${message}`
+    form.insertBefore(div, document.querySelector('.form-group'));
+
+    setTimeout(function() {
+        document.querySelector('.message').remove();
+    }, 3000);
+}
+
 
 
 
@@ -29,12 +46,12 @@ form.addEventListener('submit', function(e) {
     const type = document.querySelector('input[name="type"]:checked').value;
 
     // Crear instancia de interfaz
-    const userInterfaz = new UI();
+    const interfaz = new UI();
 
     // Revisamos que los campos no esten vacios
     if (selectedRegion === '' || selectedYear === '' || type === '') {
         // Interfaz inprimiendo un error
-        console.log('Faltan datos');
+            interfaz.showMessage('Faltan datos, revisa el formulario y prueba de nuevo', 'error');
     } else {
         // Instancia seguro y mostrar interfaz
         console.log('Todo correcto');
