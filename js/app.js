@@ -83,13 +83,19 @@ UI.prototype.showResult = function(insurance, total) {
     const div = document.createElement('div');
     // Insertar la información
     div.innerHTML = `
-        <p>Tu resumen:</p>
+        <p class="header">Tu resumen:</p>
         <p>Región: ${region}</p>
         <p>Año: ${insurance.year}</p>
         <p>Tipo: ${insurance.type}</p>
         <p>Total: ${total}</p>
     `;
-    result.appendChild(div);
+
+    const spinner = document.querySelector('#loading img');
+    spinner.style.display = 'block';
+    setTimeout(function() {
+        spinner.style.display = 'none';
+        result.appendChild(div);
+    }, 3000);
 }
 
 
@@ -116,12 +122,19 @@ form.addEventListener('submit', function(e) {
         // Interfaz inprimiendo un error
             interface.showMessage('Faltan datos, revisa el formulario y prueba de nuevo', 'error');
     } else {
+        // Limpiar resultados anteriores
+        const results = document.querySelector('#result div');
+        if(results !== null) {
+            results.remove();
+        }
+
         // Instancia seguro y mostrar interfaz
         const insurance = new Insurance(selectedRegion, selectedYear, type);
         // cotizar el seguro
         const quantity = insurance.insuranceQuote();
         // Mostrar el resultado
         interface.showResult(insurance, quantity);
+        interface.showMessage('Cotizando...', 'exito');
     }
 });
 
